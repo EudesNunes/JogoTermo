@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head th:include="layout :: htmlhead"></head>
+  <body>
+    <nav th:replace="layout :: menu">(menu)</nav>
+    <main>
+      <div class="container" style="">
+        <h1>Palavra Selecionada: <span th:text="${palavra}" ></span></h1>
+        <form
+          class="row g-3"
+          id="meuFormulario"
+          th:action="@{/consultar}"
+          method="get"
+        >
+          <div class="col-auto">
+            <input
+              type="text"
+              class="form-control"
+              name="palavrajogada"
+              id="palavrajogada"
+            />
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-3" onclick="enviarFormulario('${palavra}')">Enviar</button>
+
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <div th:include="layout :: footer">(footer)</div>
+
+    <script>
+      function enviarFormulario(palavra) {
+        var palavraJogada = document.getElementById("palavrajogada").value;
+
+        $.ajax({
+          url:
+          "/consultar?palavra=" + palavra + "&palavrajogada=" + palavraJogada,
+          method: "Get",
+          success: function () {
+            window.location.href = "/";
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
