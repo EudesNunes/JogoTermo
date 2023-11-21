@@ -1,33 +1,134 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head th:include="layout :: htmlhead"></head>
-  <body>
+  <body style="background-color: #D4D4D4">
     <nav th:replace="layout :: menu">(menu)</nav>
     <main>
-      <div class="container" style="">
-        <h1>Palavra Selecionada: <span th:text="${palavra}" ></span></h1>
-        <form
-          class="row g-3"
-          id="meuFormulario"
-          th:action="@{/consultar}"
-          method="get"
-        >
-          <div class="col-auto">
-            <input
-              type="text"
-              class="form-control"
-              name="palavrajogada"
-              id="palavrajogada"
-            />
+        <div class="principal">
+          <h3 style="text-align:center">Jogo Termo</h3>
+          <br>
+          <div class="fundo_jogo">
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">                
+                  <input type="text" class="form-control w100" maxlength="1" style="max-width:80px; max-height:100px;">
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary  ">A</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="container text-center" style="max-width:400px;">
+              <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+                <div class="col">
+                  <div class="p-3 bg-light border border-secondary">A</div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-3" onclick="enviarFormulario('${palavra}')">Enviar</button>
-
-              Enviar
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
     </main>
 
     <div th:include="layout :: footer">(footer)</div>
