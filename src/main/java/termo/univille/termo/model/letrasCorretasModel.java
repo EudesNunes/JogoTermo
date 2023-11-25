@@ -3,19 +3,24 @@ package termo.univille.termo.model;
 import termo.univille.termo.Enums.EnumStatus;
 
 public class letrasCorretasModel {
-    public char Letra;
+    public String Letra;
     public EnumStatus Status;
-    public int posicao;
 
-    public letrasCorretasModel(char letra, EnumStatus status, int posicao) {
+
+    public letrasCorretasModel(){
+        this.Letra = "";
+        this.Status = EnumStatus.EXISTE;
+    }
+
+
+    public letrasCorretasModel(String letra, EnumStatus status, int posicao) {
         Letra = letra;
         Status = status;
-        this.posicao = posicao;
     }
-    public char getLetra() {
+    public String getLetra() {
         return Letra;
     }
-    public void setLetra(char letra) {
+    public void setLetra(String letra) {
         Letra = letra;
     }
     public EnumStatus getStatus() {
@@ -24,11 +29,6 @@ public class letrasCorretasModel {
     public void setStatus(EnumStatus status) {
         Status = status;
     }
-    public int getPosicao() {
-        return posicao;
-    }
-    public void setPosicao(int posicao) {
-        this.posicao = posicao;
-    }
+ 
     
 }

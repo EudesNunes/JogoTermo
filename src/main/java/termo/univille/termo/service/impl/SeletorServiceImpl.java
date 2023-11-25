@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import termo.univille.termo.service.contratos.SeletorService;
 import termo.univille.termo.Helpers.ConsultasPalavra;
+import termo.univille.termo.model.FormulariosModel;
+import termo.univille.termo.model.MapaPalavraModel;
 import termo.univille.termo.model.letrasCorretasModel;
 
 @Service
@@ -18,15 +20,20 @@ public class SeletorServiceImpl implements SeletorService {
     private termo.univille.termo.ConsultaTexto.contratos.leitor leitor;
 
     @Override
-    public String palavraSelecionada() {
+    public FormulariosModel RequisicaoInicial() {
         List<String> listaPalavras = leitor.ler();
 
         if (listaPalavras.isEmpty()) {
-            return "";
+            return new FormulariosModel();
         } else {
             Random random = new Random();
             int indiceAleatorio = random.nextInt(listaPalavras.size());
-            return listaPalavras.get(indiceAleatorio);
+            FormulariosModel forms = new FormulariosModel();
+            MapaPalavraModel palavra1 = new MapaPalavraModel();
+            palavra1.setAtivo(true);
+            forms.setPalavraChave(listaPalavras.get(indiceAleatorio));
+            forms.setLinha1(palavra1);
+            return forms;
         }
     }
 

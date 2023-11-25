@@ -7,26 +7,38 @@
         <div class="principal">
           <h3 style="text-align:center">Termo</h3>
           <br>
+          <p>Palavra Selecionada: <span th:text="${listpalavras.PalavraChave}" ></span></p>
+
+          <br>
           <div class="fundo_jogo">
+            <form th:action="@{/verificar}" method="POST" th:object="${listpalavras}">
+              <input type="hidden" th:field="*{PalavraChave}" />
+
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text"   th:classappend="*{Linha1.Letra1.Status.getNumero == 1 ? 'certo' : (Linha1.Letra1.Status.getNumero == 2 ? 'errado' :(Linha1.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra1.Letra}"  class="form-control border border-secondary" maxlength="1" style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha1.Letra2.Status.getNumero == 1 ? 'certo' : (Linha1.Letra2.Status.getNumero == 2 ? 'errado' :(Linha1.Letra2.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra2.Letra}" class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha1.Letra3.Status.getNumero == 1 ? 'certo' : (Linha1.Letra3.Status.getNumero == 2 ? 'errado' :(Linha1.Letra3.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra3.Letra}" class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha1.Letra4.Status.getNumero == 1 ? 'certo' : (Linha1.Letra4.Status.getNumero == 2 ? 'errado' :(Linha1.Letra4.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra4.Letra}"  class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha1.Letra5.Status.getNumero == 1 ? 'certo' : (Linha1.Letra5.Status.getNumero == 2 ? 'errado' :(Linha1.Letra5.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra5.Letra}"  class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
-                <div class="col">              
-                <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha1.Ativo}" />
+                <div  class="col">              
+                <button type="submit" th:if="*{Linha1.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;">Enviar</button>
                 </div>
               </div>
             </div>
@@ -34,22 +46,25 @@
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha2.Letra1.Status.getNumero == 1 ? 'certo' : (Linha2.Letra1.Status.getNumero == 2 ? 'errado' :(Linha2.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha2.Letra2.Status.getNumero == 1 ? 'certo' : (Linha2.Letra2.Status.getNumero == 2 ? 'errado' :(Linha2.Letra2.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:classappend="*{Linha2.Letra3.Status.getNumero == 1 ? 'certo' : (Linha2.Letra3.Status.getNumero == 2 ? 'errado' :(Linha3.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
+                   th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text"  th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text"  th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">              
-                  <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                  <button type="button" th:if="*{Linha2.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
                 </div>
               </div>
             </div>
@@ -57,22 +72,22 @@
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">              
-                  <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                  <button type="button" th:if="*{Linha3.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
                 </div>
               </div>
             </div>
@@ -80,22 +95,22 @@
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra1.Letra}"  class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">              
-                  <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                  <button type="button" th:if="*{Linha4.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
                 </div>
               </div>
             </div>
@@ -103,22 +118,22 @@
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">              
-                  <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                  <button type="button" th:if="*{Linha5.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
                 </div>
               </div>
             </div>
@@ -126,26 +141,27 @@
             <div class="container text-center" style="max-width:400px;">
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
                 <div class="col">              
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">
-                  <input type="text" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
                 </div>
                 <div class="col">              
-                  <button type="button" class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                  <button type="button" th:if="*{Linha6.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
                 </div>
               </div>
             </div>
           </div>
+        </form>
         </div>
     </main>
 
@@ -167,3 +183,17 @@
     </script>
   </body>
 </html>
+
+<style>
+
+  .errado{
+    background-color: gray;
+  }
+  .certo{
+    background-color: green;
+  }
+  .quase{
+    background-color: yellow;
+  }
+
+</style>
