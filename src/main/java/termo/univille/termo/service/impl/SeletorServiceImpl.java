@@ -38,15 +38,28 @@ public class SeletorServiceImpl implements SeletorService {
     }
 
     @Override
-    public List<letrasCorretasModel> checarpalavra(String palavra, String palavraJogador) {
-
-        List<letrasCorretasModel> listacorreta = new ArrayList<>();
-
-        for (int i = 0; i < palavraJogador.length(); i++) {
-            char letra = palavraJogador.charAt(i);
-            listacorreta.add(ConsultasPalavra.verificarLetra(palavra, letra, i));
-        }
-        return listacorreta;
+    public FormulariosModel checarpalavra(FormulariosModel formulario) {
+        
+        String palavraChaveformulario = formulario.getPalavraChave();
+        var palavra = formulario.getLinha1();
+        var palavarachecada = ConsultasPalavra.verificarLetras(palavraChaveformulario, palavra);
+        formulario.setLinha1(palavarachecada);
+        var proximapalavra = formulario.getLinha2();
+        proximapalavra.setAtivo(true);
+        formulario.setLinha2(proximapalavra);
+        return formulario;
     }
+
+    // @Override
+    // public List<letrasCorretasModel> checarpalavra(String palavra, String palavraJogador) {
+
+    //     // List<letrasCorretasModel> listacorreta = new ArrayList<>();
+
+    //     // for (int i = 0; i < palavraJogador.length(); i++) {
+    //     //     char letra = palavraJogador.charAt(i);
+    //     //     listacorreta.add(ConsultasPalavra.verificarLetra(palavra, letra, i));
+    //     // }
+    //     // return listacorreta;
+    // }
 
 }

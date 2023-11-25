@@ -4,165 +4,434 @@
   <body style="background-color: #f3f3f3">
     <nav th:replace="layout :: menu">(menu)</nav>
     <main>
-        <div class="principal">
-          <h3 style="text-align:center">Termo</h3>
-          <br>
-          <p>Palavra Selecionada: <span th:text="${listpalavras.PalavraChave}" ></span></p>
+      <div id="toast-container" aria-live="polite" aria-atomic="true" class="position-absolute end-0 bottom-0">
+        <div class="toast-container top-0 end-0 p-3">
+        <div  class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="d-flex">
+            <div class="toast-body">
+              <span th:text="${excecao}"></span>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+      </div> </div>
+      
+      <div class="principal"  >
+        
+        <h3 style="text-align: center">Termo</h3>
+        <br />
+        <p>
+          Palavra Selecionada:
+          <span th:if="${listpalavras != null}" th:text="${listpalavras.PalavraChave}"></span>
+        </p>
 
-          <br>
-          <div class="fundo_jogo">
-            <form th:action="@{/verificar}" method="POST" th:object="${listpalavras}">
-              <input type="hidden" th:field="*{PalavraChave}" />
+        <br />
+        <div class="fundo_jogo">
+          <form
+            th:action="@{/verificar}"
+            method="POST"
+            th:object="${listpalavras}"
+          >
+            <input type="hidden" th:field="*{PalavraChave}" />
 
-            <div class="container text-center" style="max-width:400px;">
-              <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text"   th:classappend="*{Linha1.Letra1.Status.getNumero == 1 ? 'certo' : (Linha1.Letra1.Status.getNumero == 2 ? 'errado' :(Linha1.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra1.Letra}"  class="form-control border border-secondary" maxlength="1" style="text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+            <div class="container text-center" style="max-width: 400px ">
+              <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3 ">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha1.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha1.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha1.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha1.Ativo}"
+                    th:field="*{Linha1.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha1.Letra2.Status.getNumero == 1 ? 'certo' : (Linha1.Letra2.Status.getNumero == 2 ? 'errado' :(Linha1.Letra2.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra2.Letra}" class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha1.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha1.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha1.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha1.Ativo}"
+                    th:field="*{Linha1.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha1.Letra3.Status.getNumero == 1 ? 'certo' : (Linha1.Letra3.Status.getNumero == 2 ? 'errado' :(Linha1.Letra3.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra3.Letra}" class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha1.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha1.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha1.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha1.Ativo}"
+                    th:field="*{Linha1.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha1.Letra4.Status.getNumero == 1 ? 'certo' : (Linha1.Letra4.Status.getNumero == 2 ? 'errado' :(Linha1.Letra4.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra4.Letra}"  class="form-control border border-secondary " maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha1.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha1.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha1.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha1.Ativo}"
+                    th:field="*{Linha1.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha1.Letra5.Status.getNumero == 1 ? 'certo' : (Linha1.Letra5.Status.getNumero == 2 ? 'errado' :(Linha1.Letra5.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha1.Ativo}" th:field="*{Linha1.Letra5.Letra}"  class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha1.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha1.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha1.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha1.Ativo}"
+                    th:field="*{Linha1.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <input type="hidden" th:field="*{Linha1.Ativo}" />
-                <div  class="col">              
-                <button type="submit" th:if="*{Linha1.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;">Enviar</button>
+                <div class="col">
+                  <button
+                    type="submit"
+                    th:if="*{Linha1.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
-            </div>
-            <br>
-            <div class="container text-center" style="max-width:400px;">
+
+              <br />
+
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text" th:classappend="*{Linha2.Letra1.Status.getNumero == 1 ? 'certo' : (Linha2.Letra1.Status.getNumero == 2 ? 'errado' :(Linha2.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
-                    th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha2.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha2.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha2.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"
+                    th:field="*{Linha2.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha2.Letra2.Status.getNumero == 1 ? 'certo' : (Linha2.Letra2.Status.getNumero == 2 ? 'errado' :(Linha2.Letra2.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha2.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha2.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha2.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"
+                    th:field="*{Linha2.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:classappend="*{Linha2.Letra3.Status.getNumero == 1 ? 'certo' : (Linha2.Letra3.Status.getNumero == 2 ? 'errado' :(Linha3.Letra1.Status.getNumero == 3 ? 'quase' : ''))}"
-                   th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha2.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha2.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha2.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"
+                    th:field="*{Linha2.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text"  th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha2.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha2.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha2.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"
+                    th:field="*{Linha2.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text"  th:disabled="*{not Linha2.Ativo}"  th:field="*{Linha2.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha2.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha2.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha2.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha2.Ativo}"
+                    th:field="*{Linha2.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
-                <div class="col">              
-                  <button type="button" th:if="*{Linha2.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha2.Ativo}" />
+                <div class="col">
+                  <button
+                    type="button"
+                    th:if="*{Linha2.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
-            </div>
-            <br>
-            <div class="container text-center" style="max-width:400px;">
+
+              <br />
+
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha3.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha3.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha3.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha3.Ativo}"
+                    th:field="*{Linha3.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha3.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha3.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha3.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha3.Ativo}"
+                    th:field="*{Linha3.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha3.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha3.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha3.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha3.Ativo}"
+                    th:field="*{Linha3.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha3.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha3.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha3.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha3.Ativo}"
+                    th:field="*{Linha3.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha3.Ativo}" th:field="*{Linha3.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha3.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha3.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha3.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha3.Ativo}"
+                    th:field="*{Linha3.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
-                <div class="col">              
-                  <button type="button" th:if="*{Linha3.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha3.Ativo}" />
+                <div class="col">
+                  <button
+                    type="button"
+                    th:if="*{Linha3.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
-            </div>
-            <br>
-            <div class="container text-center" style="max-width:400px;">
+
+              <br />
+
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra1.Letra}"  class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha4.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha4.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha4.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha4.Ativo}"
+                    th:field="*{Linha4.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha4.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha4.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha4.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha4.Ativo}"
+                    th:field="*{Linha4.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha4.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha4.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha4.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha4.Ativo}"
+                    th:field="*{Linha4.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha4.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha4.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha4.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha4.Ativo}"
+                    th:field="*{Linha4.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha4.Ativo}" th:field="*{Linha4.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha4.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha4.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha4.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha4.Ativo}"
+                    th:field="*{Linha4.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
-                <div class="col">              
-                  <button type="button" th:if="*{Linha4.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha4.Ativo}" />
+                <div class="col">
+                  <button
+                    type="button"
+                    th:if="*{Linha4.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
-            </div>
-            <br>
-            <div class="container text-center" style="max-width:400px;">
+
+              <br />
+
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha5.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha5.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha5.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha5.Ativo}"
+                    th:field="*{Linha5.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha5.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha5.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha5.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha5.Ativo}"
+                    th:field="*{Linha5.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha5.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha5.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha5.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha5.Ativo}"
+                    th:field="*{Linha5.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha5.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha5.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha5.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha5.Ativo}"
+                    th:field="*{Linha5.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha5.Ativo}" th:field="*{Linha5.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha5.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha5.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha5.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha5.Ativo}"
+                    th:field="*{Linha5.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
-                <div class="col">              
-                  <button type="button" th:if="*{Linha5.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha5.Ativo}" />
+                <div class="col">
+                  <button
+                    type="button"
+                    th:if="*{Linha5.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
-            </div>
-            <br>
-            <div class="container text-center" style="max-width:400px;">
+
+              <br />
+
               <div class="row row-cols-2 row-cols-lg-6 g-2 g-lg-3">
-                <div class="col">              
-                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra1.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                <div class="col">
+                  <input
+                    type="text"
+                    th:style="*{Linha6.Letras[0].Status.getNumero == 1 ? 'background-color: green;' : (Linha6.Letras[0].Status.getNumero == 2 ? 'background-color: gray;' : (Linha6.Letras[0].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha6.Ativo}"
+                    th:field="*{Linha6.Letras[0].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra2.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha6.Letras[1].Status.getNumero == 1 ? 'background-color: green;' : (Linha6.Letras[1].Status.getNumero == 2 ? 'background-color: gray;' : (Linha6.Letras[1].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha6.Ativo}"
+                    th:field="*{Linha6.Letras[1].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra3.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha6.Letras[2].Status.getNumero == 1 ? 'background-color: green;' : (Linha6.Letras[2].Status.getNumero == 2 ? 'background-color: gray;' : (Linha6.Letras[2].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha6.Ativo}"
+                    th:field="*{Linha6.Letras[2].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra4.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha6.Letras[3].Status.getNumero == 1 ? 'background-color: green;' : (Linha6.Letras[3].Status.getNumero == 2 ? 'background-color: gray;' : (Linha6.Letras[3].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha6.Ativo}"
+                    th:field="*{Linha6.Letras[3].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
                 <div class="col">
-                  <input type="text" th:disabled="*{not Linha6.Ativo}" th:field="*{Linha6.Letra5.Letra}" class="form-control border border-secondary" maxlength="1" style="max-width:70px; max-height:800px; text-align: center; font-family: Arial, Helvetica, sans-serif; font-size: 20px;">
+                  <input
+                    type="text"
+                    th:style="*{Linha6.Letras[4].Status.getNumero == 1 ? 'background-color: green;' : (Linha6.Letras[4].Status.getNumero == 2 ? 'background-color: gray;' : (Linha6.Letras[4].Status.getNumero == 3 ? 'background-color: yellow;' : ''))}"
+                    th:disabled="*{not Linha6.Ativo}"
+                    th:field="*{Linha6.Letras[4].Letra}"
+                    class="form-control border border-secondary inputs"
+                    maxlength="1"
+                  />
                 </div>
-                <div class="col">              
-                  <button type="button" th:if="*{Linha6.Ativo}"  class="btn btn-secondary" style="max-height: 80px; margin-top: 3px;";>Enviar</button>
+                <input type="hidden" th:field="*{Linha2.Ativo}" />
+                <div class="col">
+                  <button
+                    type="button"
+                    th:if="*{Linha6.Ativo}"
+                    class="btn btn-secondary"
+                    style="max-height: 80px; margin-top: 3px"
+                  >
+                    Enviar
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
         </div>
+      </div>
     </main>
 
     <div th:include="layout :: footer">(footer)</div>
@@ -173,7 +442,7 @@
 
         $.ajax({
           url:
-          "/consultar?palavra=" + palavra + "&palavrajogada=" + palavraJogada,
+            "/consultar?palavra=" + palavra + "&palavrajogada=" + palavraJogada,
           method: "Get",
           success: function () {
             window.location.href = "/";
@@ -185,15 +454,23 @@
 </html>
 
 <style>
-
-  .errado{
+  .inputs {
+    max-width: 70px;
+    max-height: 800px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+  }
+  .ativo {
     background-color: gray;
   }
-  .certo{
-    background-color: green;
-  }
-  .quase{
-    background-color: yellow;
-  }
-
+ 
 </style>
+
+<script th:if="${not #strings.isEmpty(excecao)}">
+  // JavaScript para ativar o Toast se houver uma mensagem de erro
+  document.addEventListener('DOMContentLoaded', function () {
+      var myToast = new bootstrap.Toast(document.querySelector('.toast'));
+      myToast.show();
+  });
+</script>

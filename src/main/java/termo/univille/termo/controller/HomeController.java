@@ -21,14 +21,30 @@ public class HomeController {
     @GetMapping
     @ResponseBody
     public ModelAndView index() {
-        var listpalavras = service.RequisicaoInicial();
-        return new ModelAndView("home/index", "listpalavras", listpalavras);
+        ModelAndView modelAndView = new ModelAndView("home/index");
+    
+        try {
+            var listpalavras = service.RequisicaoInicial();
+            modelAndView.addObject("listpalavras", listpalavras);
+        } catch (Exception e) {
+             modelAndView.addObject("excecao", e);
+        }
+        
+        return modelAndView;
     }
     
     @PostMapping("verificar")
     public ModelAndView verificar(FormulariosModel form) {
-      
-        ModelAndView modelAndView = new ModelAndView("home/index", "listpalavras", form);
-        return modelAndView;
+        ModelAndView modelAndView = new ModelAndView("home/index");
+    
+        try {
+           var newform = service.checarpalavra(form);
+            modelAndView.addObject("listpalavras", newform);
+        } catch (Exception e) {
+              modelAndView.addObject("listpalavras", form);
+             modelAndView.addObject("excecao", e);
+        }
+    return modelAndView;
+
     }
 }

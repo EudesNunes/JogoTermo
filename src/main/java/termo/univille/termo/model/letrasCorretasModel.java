@@ -9,7 +9,7 @@ public class letrasCorretasModel {
 
     public letrasCorretasModel(){
         this.Letra = "";
-        this.Status = EnumStatus.EXISTE;
+        this.Status = EnumStatus.NULO;
     }
 
 
