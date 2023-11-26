@@ -1,5 +1,6 @@
 package termo.univille.termo.service.impl;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +34,9 @@ public class SeletorServiceImpl implements SeletorService {
             FormulariosModel forms = new FormulariosModel();
             List<MapaPalavraModel> palavras = forms.getLinhas();
             palavras.get(0).setAtivo(true);
-            forms.setPalavraChave(listaPalavras.get(indiceAleatorio));
+            String palavraChaveBase64 = Base64.getEncoder()
+                    .encodeToString(listaPalavras.get(indiceAleatorio).getBytes());
+            forms.setPalavraChave(palavraChaveBase64);
             forms.setLinhas(palavras);
             return forms;
         }
@@ -42,7 +45,9 @@ public class SeletorServiceImpl implements SeletorService {
     @Override
     public FormulariosModel checarpalavra(FormulariosModel formulario) {
         try {
-            var palavraChave = formulario.getPalavraChave();
+            byte[] palavraChaveBytes = Base64.getDecoder().decode(formulario.getPalavraChave());
+            String palavraChave = new String(palavraChaveBytes);
+
             var linhasFormulario = formulario.getLinhas();
 
             var tamanhoLista = linhasFormulario.size();
@@ -57,20 +62,23 @@ public class SeletorServiceImpl implements SeletorService {
                     if (helper.vitoria(palavarachecada)) {
                         formulario.setFimJogo(EnumFinalizar.GANHO);
                         formulario.setMensagem("Vitória");
+                        formulario.setPalavraChave(palavraChave);
                     }
                     palavra.setLetras(palavarachecada.getLetras());
                     linhasFormulario.set(i, palavra);
 
-                    if (i < tamanhoLista -1  && formulario.getFimJogo() != EnumFinalizar.GANHO) {
+                    if (i < tamanhoLista - 1 && formulario.getFimJogo() != EnumFinalizar.GANHO) {
                         var proximaPalavra = linhasFormulario.get(i + 1);
                         proximaPalavra.setAtivo(true);
                         linhasFormulario.set(i + 1, proximaPalavra);
 
                         break;
-                    }else{
-                        if(formulario.getFimJogo() != EnumFinalizar.GANHO){
-                        formulario.setFimJogo(EnumFinalizar.PERDA);
-                        formulario.setMensagem("Perdeu");
+                    } else {
+                        if (formulario.getFimJogo() != EnumFinalizar.GANHO) {
+                            formulario.setFimJogo(EnumFinalizar.PERDA);
+                            formulario.setMensagem("Perdeu");
+                            formulario.setPalavraChave(palavraChave);
+
                         }
                     }
                     formulario.setLinhas(linhasFormulario);
