@@ -1,6 +1,5 @@
 package termo.univille.termo.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,16 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import termo.univille.termo.service.contratos.SeletorService;
-import termo.univille.termo.Helpers.ConsultasPalavra;
+import termo.univille.termo.Enums.EnumFinalizar;
+import termo.univille.termo.Helpers.IConsultasPalavra;
 import termo.univille.termo.model.FormulariosModel;
 import termo.univille.termo.model.MapaPalavraModel;
-import termo.univille.termo.model.letrasCorretasModel;
 
 @Service
 public class SeletorServiceImpl implements SeletorService {
 
     @Autowired
     private termo.univille.termo.ConsultaTexto.contratos.leitor leitor;
+
+    @Autowired
+    private IConsultasPalavra helper;
 
     @Override
     public FormulariosModel RequisicaoInicial() {
@@ -29,37 +31,57 @@ public class SeletorServiceImpl implements SeletorService {
             Random random = new Random();
             int indiceAleatorio = random.nextInt(listaPalavras.size());
             FormulariosModel forms = new FormulariosModel();
-            MapaPalavraModel palavra1 = new MapaPalavraModel();
-            palavra1.setAtivo(true);
+            List<MapaPalavraModel> palavras = forms.getLinhas();
+            palavras.get(0).setAtivo(true);
             forms.setPalavraChave(listaPalavras.get(indiceAleatorio));
-            forms.setLinha1(palavra1);
+            forms.setLinhas(palavras);
             return forms;
         }
     }
 
     @Override
     public FormulariosModel checarpalavra(FormulariosModel formulario) {
-        
-        String palavraChaveformulario = formulario.getPalavraChave();
-        var palavra = formulario.getLinha1();
-        var palavarachecada = ConsultasPalavra.verificarLetras(palavraChaveformulario, palavra);
-        formulario.setLinha1(palavarachecada);
-        var proximapalavra = formulario.getLinha2();
-        proximapalavra.setAtivo(true);
-        formulario.setLinha2(proximapalavra);
-        return formulario;
+        try {
+            var palavraChave = formulario.getPalavraChave();
+            var linhasFormulario = formulario.getLinhas();
+
+            var tamanhoLista = linhasFormulario.size();
+
+            for (int i = 0; i < tamanhoLista; i++) {
+                var palavra = linhasFormulario.get(i);
+                if (palavra.isAtivo()) {
+                    if (!helper.ExisteBanco(palavra)) {
+                        throw new RuntimeException("Essa palavra não é aceita");
+                    }
+                    var palavarachecada = helper.verificarLetras(palavraChave, palavra);
+                    if (helper.vitoria(palavarachecada)) {
+                        formulario.setFimJogo(EnumFinalizar.GANHO);
+                        formulario.setMensagem("Vitória");
+                    }
+                    palavra.setLetras(palavarachecada.getLetras());
+                    linhasFormulario.set(i, palavra);
+
+                    if (i < tamanhoLista -1  && formulario.getFimJogo() != EnumFinalizar.GANHO) {
+                        var proximaPalavra = linhasFormulario.get(i + 1);
+                        proximaPalavra.setAtivo(true);
+                        linhasFormulario.set(i + 1, proximaPalavra);
+
+                        break;
+                    }else{
+                        if(formulario.getFimJogo() != EnumFinalizar.GANHO){
+                        formulario.setFimJogo(EnumFinalizar.PERDA);
+                        formulario.setMensagem("Perdeu");
+                        }
+                    }
+                    formulario.setLinhas(linhasFormulario);
+                }
+            }
+            return formulario;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
-
-    // @Override
-    // public List<letrasCorretasModel> checarpalavra(String palavra, String palavraJogador) {
-
-    //     // List<letrasCorretasModel> listacorreta = new ArrayList<>();
-
-    //     // for (int i = 0; i < palavraJogador.length(); i++) {
-    //     //     char letra = palavraJogador.charAt(i);
-    //     //     listacorreta.add(ConsultasPalavra.verificarLetra(palavra, letra, i));
-    //     // }
-    //     // return listacorreta;
-    // }
 
 }

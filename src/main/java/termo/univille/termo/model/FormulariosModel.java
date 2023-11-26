@@ -1,36 +1,35 @@
 package termo.univille.termo.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import termo.univille.termo.Enums.EnumFinalizar;
+
 public class FormulariosModel {
-    private MapaPalavraModel Linha1;
-    private MapaPalavraModel Linha2;
-    private MapaPalavraModel Linha3;
-    private MapaPalavraModel Linha4;
-    private MapaPalavraModel Linha5;
-    private MapaPalavraModel Linha6;
+    private List<MapaPalavraModel> Linhas;
 
     private String PalavraChave;
 
+    private EnumFinalizar FimJogo;
+
+    private String Mensagem;
+
     public FormulariosModel() {
-        this.Linha1 = new MapaPalavraModel();
-        this.Linha2 = new MapaPalavraModel();
-        this.Linha3 = new MapaPalavraModel();
-        this.Linha4 = new MapaPalavraModel();
-        this.Linha5 = new MapaPalavraModel();
-        this.Linha6 = new MapaPalavraModel();
+        this.Linhas = new ArrayList<>(Arrays.asList(new MapaPalavraModel(),
+                new MapaPalavraModel(),
+                new MapaPalavraModel(),
+                new MapaPalavraModel(), 
+                new MapaPalavraModel(),
+                new MapaPalavraModel()));
 
-        this.PalavraChave = "";
+        this.PalavraChave = ""; 
+        this.Mensagem = "";
+        this.FimJogo = EnumFinalizar.NULO;
+
     }
 
-    public MapaPalavraModel getLinha6() {
-        return Linha6;
-    }
-
-    public void setLinha6(MapaPalavraModel linha6) {
-        Linha6 = linha6;
-    }
-
+    
     public String getPalavraChave() {
         return PalavraChave;
     }
@@ -39,44 +38,31 @@ public class FormulariosModel {
         PalavraChave = palavraChave;
     }
 
-    public MapaPalavraModel getLinha1() {
-        return Linha1;
+    public List<MapaPalavraModel> getLinhas() {
+        return Linhas;
     }
 
-    public void setLinha1(MapaPalavraModel linha1) {
-        Linha1 = linha1;
+    public void setLinhas(List<MapaPalavraModel> linhas) {
+        Linhas = linhas;
+    }  
+
+    public EnumFinalizar getFimJogo() {
+        return FimJogo;
     }
 
-    public MapaPalavraModel getLinha2() {
-        return Linha2;
+
+    public void setFimJogo(EnumFinalizar fimJogo) {
+        FimJogo = fimJogo;
     }
 
-    public void setLinha2(MapaPalavraModel linha2) {
-        Linha2 = linha2;
+
+    public String getMensagem() {
+        return Mensagem;
     }
 
-    public MapaPalavraModel getLinha3() {
-        return Linha3;
-    }
 
-    public void setLinha3(MapaPalavraModel linha3) {
-        Linha3 = linha3;
-    }
-
-    public MapaPalavraModel getLinha4() {
-        return Linha4;
-    }
-
-    public void setLinha4(MapaPalavraModel linha4) {
-        Linha4 = linha4;
-    }
-
-    public MapaPalavraModel getLinha5() {
-        return Linha5;
-    }
-
-    public void setLinha5(MapaPalavraModel linha5) {
-        Linha5 = linha5;
+    public void setMensagem(String mensagem) {
+        Mensagem = mensagem;
     }
 
 }

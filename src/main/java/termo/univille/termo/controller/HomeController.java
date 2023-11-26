@@ -42,7 +42,7 @@ public class HomeController {
             modelAndView.addObject("listpalavras", newform);
         } catch (Exception e) {
               modelAndView.addObject("listpalavras", form);
-             modelAndView.addObject("excecao", e);
+             modelAndView.addObject("excecao", e.getMessage());
         }
     return modelAndView;
 
